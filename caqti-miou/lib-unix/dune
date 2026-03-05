@@ -3,4 +3,11 @@
  (public_name caqti-miou.unix)
  (optional)
  (modules caqti_miou_unix system system_unix)
- (libraries caqti-miou caqti.platform.unix miou.unix ipaddr.unix))
+ (libraries
+   caqti
+   caqti.platform.unix
+   caqti-miou
+   miou.unix
+   ipaddr.unix
+   mtime
+   mirage-mtime))

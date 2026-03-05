@@ -43,7 +43,7 @@ struct
     type t = {cancel: unit -> unit}
 
     let schedule ~sw ~stdenv:_ t f =
-      let t_now = Mtime_clock.now () in
+      let t_now = Mtime.of_uint64_ns (Mirage_mtime.elapsed_ns ()) in
       let dt_ns =
         if Mtime.is_later t ~than:t_now then 0L else
         Mtime.Span.to_uint64_ns (Mtime.span t t_now)
