@@ -50,7 +50,7 @@ module Alarm = struct
   type t = Miou.Condition.t * Miou.Mutex.t
 
   let schedule ~sw ~stdenv:_ t fn =
-    let t_now = Mtime_clock.now () in
+    let t_now = Mtime.of_uint64_ns (Mirage_mtime.elapsed_ns ()) in
     let mutex = Miou.Mutex.create () and condition = Miou.Condition.create () in
     let delay =
       if Mtime.is_later t ~than:t_now then 0.0
