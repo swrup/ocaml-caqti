@@ -15,5 +15,7 @@
     lwt
     mirage-channel
     mirage-sleep
+    mtime
+    mirage-mtime
     tcpip
     tls-mirage))

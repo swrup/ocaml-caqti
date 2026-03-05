@@ -38,7 +38,7 @@ module Alarm = struct
   type t = {cancel: unit -> unit}
 
   let schedule ~sw:_ ~stdenv:() t f =
-    let t_now = Mtime_clock.now () in
+    let t_now = Mtime.of_uint64_ns (Mirage_mtime.elapsed_ns ()) in
     let delay =
       if Mtime.is_later t ~than:t_now then
         Lwt.pause ()

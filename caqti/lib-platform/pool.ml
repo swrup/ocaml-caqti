@@ -170,7 +170,9 @@ struct
         (function
          | Ok resource ->
             Fiber.return @@
-              Ok {resource; used_count = 0; used_latest = Mtime_clock.now ()}
+              Ok {resource; used_count = 0; used_latest =
+                Mtime.of_uint64_ns (Mirage_mtime.elapsed_ns ())
+    }
          | Error err ->
             on_error () >|= fun () ->
             Error err))
@@ -219,7 +221,7 @@ struct
       (match Queue.peek_opt pool.queue, pool.max_idle_age with
        | None, _ | _, None -> Fiber.return ()
        | Some entry, Some max_idle_age ->
-          let now = Mtime_clock.now () in
+          let now = Mtime.of_uint64_ns (Mirage_mtime.elapsed_ns ()) in
           (match Mtime.add_span entry.used_latest max_idle_age with
            | None ->
               Logs.warn ~src:pool.log_src (fun f -> f
@@ -286,7 +288,7 @@ struct
           begin
             if ok then
               begin
-                entry.used_latest <- Mtime_clock.now ();
+                entry.used_latest <- Mtime.of_uint64_ns (Mirage_mtime.elapsed_ns ());
                 Queue.add entry pool.queue;
                 dispose_expiring_lck pool
               end
