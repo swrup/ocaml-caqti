@@ -1,0 +1,36 @@
+opam-version: "2.0"
+name: "caqti-mirage"
+maintainer: "Petter A. Urkedal <paurkedal@gmail.com>"
+x-maintenance-intent: ["(latest)"]
+authors: "Petter A. Urkedal <paurkedal@gmail.com>"
+license: "LGPL-3.0-or-later WITH LGPL-3.0-linking-exception"
+homepage: "https://github.com/paurkedal/ocaml-caqti/"
+doc: "https://paurkedal.github.io/ocaml-caqti/index.html"
+bug-reports: "https://github.com/paurkedal/ocaml-caqti/issues"
+depends: [
+  "caqti" {>= "2.2.3" & < "2.3.0~"}
+  "dune" {>= "3.9"}
+  "miou" {>= "0.3.0"}
+  "logs"
+  "caqti-miou"
+  "mtime"
+  "mirage-mtime" # TODO version with solo5 C stubs
+  "dns"
+  "mnet-dns"
+  "ocaml" {>= "5.0.0~"}
+  "alcotest" {with-test & >= "1.5.0"}
+  "caqti-driver-sqlite3" {with-test}
+  "cmdliner" {with-test & >= "1.1.0"}
+  "mirage-crypto-rng-miou-unix" {with-test}
+  "odoc" {with-doc}
+]
+build: [
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+  ["dune" "build" "@doc" "-p" name "-j" jobs] {with-doc}
+]
+dev-repo: "git+https://github.com/paurkedal/ocaml-caqti.git"
+synopsis: "Mkernel support for Caqti including TLS"
+pin-depends: [
+  ["mirage-mtime.dev" "git+https://github.com/swrup/mirage-mtime.git#6a6bb4dd25624a3c43e6417dcdf73f3c689946a7"]
+]
