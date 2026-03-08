@@ -20,3 +20,4 @@
 (package (name caqti-type-calendar) (allow_empty))
 (package (name caqti-miou) (allow_empty))
 (package (name caqti-tls-miou) (allow_empty))
+(package (name caqti-mnet) (allow_empty))

@@ -1,0 +1,14 @@
+(library
+ (name caqti_mnet)
+ (public_name caqti-mnet)
+ (libraries
+    caqti
+    caqti.platform
+    caqti-miou
+    domain-name
+    ipaddr
+    logs
+    mtime
+    mirage-mtime
+    dns
+    mnet-dns))
