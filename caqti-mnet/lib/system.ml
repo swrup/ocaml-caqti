@@ -42,7 +42,6 @@ module System_core = struct
     ; dns : Mnet_dns.t
     }
 end
-
 include System_core
 
 module Alarm = struct
@@ -56,15 +55,15 @@ module Alarm = struct
     in
     let mutex = Miou.Mutex.create ()
     and condition = Miou.Condition.create () in
-    Logs.debug (fun m -> m "schedule an alarm");
+    Log.debug (fun m -> m "schedule an alarm");
     let _ =
       async ~sw @@ fun () ->
-      Logs.debug (fun m -> m "really schedule an alarm");
+      Log.debug (fun m -> m "really schedule an alarm");
       let sleeper =
         Miou.async @@ fun () ->
-        Logs.debug (fun m -> m "Sleep %dns" dt_ns);
+        Log.debug (fun m -> m "Sleep %dns" dt_ns);
         Mkernel.sleep dt_ns;
-        Logs.debug (fun m -> m "Ring the alarm");
+        Log.debug (fun m -> m "Ring the alarm");
         `Continue
       in
       let canceller =
@@ -213,7 +212,7 @@ module Net = struct
       match Caqti_platform.Connector.load_library "caqti-tls-miou" with
       | Ok () -> ()
       | Error msg ->
-        Logs.warn (fun m ->
+        Log.warn (fun m ->
             m "TLS configured, but missing caqti-tls-miou: %s" msg )
     end;
     !tls_providers_r
