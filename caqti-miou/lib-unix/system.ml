@@ -56,14 +56,14 @@ module Alarm = struct
       if Mtime.is_later t ~than:t_now then 0.0
       else Mtime.Span.to_float_ns (Mtime.span t t_now) *. 1e-9
     in
-    Logs.debug (fun m -> m "schedule an alarm");
+    Log.debug (fun m -> m "schedule an alarm");
     let _ =
       async ~sw @@ fun () ->
-      Logs.debug (fun m -> m "really schedule an alarm");
+      Log.debug (fun m -> m "really schedule an alarm");
       let sleeper = Miou.async @@ fun () ->
-        Logs.debug (fun m -> m "Sleep %fs" delay);
+        Log.debug (fun m -> m "Sleep %fs" delay);
         Miou_unix.sleep delay;
-        Logs.debug (fun m -> m "Ring the alarm");
+        Log.debug (fun m -> m "Ring the alarm");
         `Continue in
       let canceller =
         Miou.async @@ fun () ->
