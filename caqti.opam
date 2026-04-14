@@ -25,6 +25,7 @@ depends: [
   "lwt-dllist"
   "mdx" {with-test & >= "2.3.0"}
   "mtime" {>= "2.0.0"}
+  "mirage-mtime"
   "ocaml" {>= "4.08.0"}
   "odoc" {with-doc}
   "ptime"
@@ -59,3 +60,7 @@ and only provides the type information needed at the edges of communication
 between the OCaml code and the database; i.e. for encoding parameters and
 decoding returned tuples. It is hoped that this agnostic choice makes it a
 suitable target for higher level interfaces and code generators."""
+
+pin-depends: [
+  ["mirage-mtime.dev" "git+https://github.com/swrup/mirage-mtime.git#6a6bb4dd25624a3c43e6417dcdf73f3c689946a7"]
+]
