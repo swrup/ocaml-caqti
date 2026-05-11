@@ -21,15 +21,15 @@ module Pool = System.Pool
 module Loader = Caqti_platform.Driver_loader.Make (System)
 include Connector.Make (System) (Pool) (Loader)
 
-let connect ?subst ?env ?config ?tweaks_version ~sw stack state dns uri =
-  connect ?subst ?env ?config ?tweaks_version ~sw ~stdenv:{ stack; state; dns }
+let connect ?subst ?env ?config ~sw stack state dns uri =
+  connect ?subst ?env ?config ~sw ~stdenv:{ stack; state; dns }
     uri
 
-let with_connection ?subst ?env ?config ?tweaks_version stack state dns uri =
-  with_connection ?subst ?env ?config ?tweaks_version
+let with_connection ?subst ?env ?config stack state dns uri =
+  with_connection ?subst ?env ?config
     ~stdenv:{ stack; state; dns } uri
 
-let connect_pool ?pool_config ?post_connect ?subst ?env ?config ?tweaks_version
+let connect_pool ?pool_config ?post_connect ?subst ?env ?config
     ~sw stack state dns uri =
-  connect_pool ?pool_config ?post_connect ?subst ?env ?config ?tweaks_version
+  connect_pool ?pool_config ?post_connect ?subst ?env ?config
     ~sw ~stdenv:{ stack; state; dns } uri

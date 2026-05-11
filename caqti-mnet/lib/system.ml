@@ -131,7 +131,7 @@ module Net = struct
     | false, false -> Error (`Msg "No IP address assigned to host.")
 
   let convert_io_exception = function
-    | Failure msg -> Some (Caqti_error.Msg msg) (* Channel.S.error *)
+    | Failure msg -> Some (Caqti.Error.Msg msg) (* Channel.S.error *)
     | _ -> None
 
   type tcp_flow = TCP.flow
@@ -186,7 +186,7 @@ module Net = struct
   let connect_tcp ~sw:_ ~stdenv sockaddr =
     match sockaddr with
     | `Unix _ ->
-      Error (Caqti_error.Msg "Unix sockets are not available under MirageOS.")
+      Error (Caqti.Error.Msg "Unix sockets are not available under MirageOS.")
     | `Tcp (ipaddr, port) ->
       let flow = TCP.connect stdenv.state (ipaddr, port) in
       Ok (Socket (System (Buffer.create 0x7ff, flow)))
@@ -208,7 +208,7 @@ module Net = struct
   let register_tls_provider p = tls_providers_r := p :: !tls_providers_r
 
   let tls_providers config =
-    if Caqti_connect_config.mem_name "tls" config then begin
+    if Caqti.Connect.Config.mem_name "tls" config then begin
       match Caqti_platform.Connector.load_library "caqti-tls-miou" with
       | Ok () -> ()
       | Error msg ->

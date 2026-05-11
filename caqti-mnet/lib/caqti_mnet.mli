@@ -22,10 +22,10 @@
 
 module System = System
 
-module Pool : Caqti_pool_sig.S with type 'a fiber := 'a
+module Pool : Caqti.Pool.S with type 'a fiber := 'a
 
 include
-  Caqti_connect_sig.S
+  Caqti.Connect.S
     with type 'a fiber := 'a
      and type ('a, 'e) stream := ('a, 'e) Caqti_miou.Stream.t
      and type ('a, 'e) pool := ('a, 'e) Pool.t
